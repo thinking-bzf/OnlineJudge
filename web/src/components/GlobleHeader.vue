@@ -1,7 +1,11 @@
 <template>
   <div id="globalHeader">
     <div class="menu-demo">
-      <a-menu mode="horizontal" :default-selected-keys="['1']">
+      <a-menu
+        mode="horizontal"
+        :default-selected-keys="['1']"
+        @menu-item-click="doMenuClick"
+      >
         <a-menu-item
           key="0"
           :style="{ padding: 0, marginRight: '38px' }"
@@ -12,17 +16,26 @@
             <div class="title">SmartCode</div>
           </div>
         </a-menu-item>
-        <a-menu-item key="1">Home</a-menu-item>
-        <a-menu-item key="2">Solution</a-menu-item>
-        <a-menu-item key="3">Cloud Service</a-menu-item>
-        <a-menu-item key="4">Cooperation</a-menu-item>
+        <a-menu-item v-for="item in routes" :key="item.path">
+          {{ item.name }}
+        </a-menu-item>
       </a-menu>
     </div>
   </div>
 </template>
 
-<script lang="ts"></script>
+<script setup lang="ts">
+import { routes } from "@/router/routes";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
+
+const doMenuClick = (key) => {
+  router.push({
+    path: key,
+  });
+};
+</script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .title-bar {
