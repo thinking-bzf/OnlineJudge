@@ -9,7 +9,7 @@
       </a-layout-content>
       <a-layout-footer class="footer">
         <a href="https://github.com/thinking-bzf" target="_blank">
-          awsling github
+          Awsling github
         </a>
       </a-layout-footer>
     </a-layout>
@@ -18,13 +18,11 @@
 
 <style>
 #basicLayout .header {
-  background-color: #002a98;
-  color: white;
   line-height: 64px;
 }
 
 #basicLayout .content {
-  background: linear-gradient(to right, #0f2b3d, #1b3b4b);
+  background: linear-gradient(to right, #f0f2f5, #e8e8e8);
   margin-bottom: 16px;
 }
 
