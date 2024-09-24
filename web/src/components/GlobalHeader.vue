@@ -1,5 +1,5 @@
 <template>
-  <a-row class="globalHeader" style="margin-bottom: 16px" align="center">
+  <a-row class="globalHeader" align="center" :wrap="false">
     <a-col flex="auto">
       <div class="menu">
         <a-menu
@@ -18,7 +18,7 @@
               <div class="title">SmartCode</div>
             </div>
           </a-menu-item>
-          <a-menu-item v-for="item in routes" :key="item.path">
+          <a-menu-item v-for="item in visibleRoutes" :key="item.path">
             {{ item.name }}
           </a-menu-item>
         </a-menu>
@@ -33,10 +33,24 @@
 <script setup lang="ts">
 import { routes } from "@/router/routes";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import checkAccess from "@/access/CheckAccess";
+import ACCESS_ENUM from "@/access/AccessEnum";
 
 const router = useRouter();
+const store = useStore();
+
+// 过滤出需要显示的菜单项
+const visibleRoutes = computed(() => {
+  return routes.filter((item, index) => {
+    if (item.meta?.hideInMenu) {
+      return false;
+    }
+    const loginUser = store.state.user?.loginUser;
+    return checkAccess(loginUser, item?.meta?.access as string);
+  });
+});
 
 // 默认主页
 const selectedKeys = ref(["/"]);
@@ -45,15 +59,15 @@ router.afterEach((to, from, next) => {
   selectedKeys.value = [to.path];
 });
 
-const store = useStore();
-// console.log(store.state.user.loginUser.userName);
+// 模拟登录
+setTimeout(() => {
+  store.dispatch("user/getLoginUser", {
+    userName: "awsling",
+    userRole: ACCESS_ENUM.ADMIN,
+  });
+}, 3000);
 
-// setTimeout(() => {
-//   store.dispatch("user/getLoginUser", {
-//     userName: "awsling",
-//   });
-// }, 3000);
-
+// 菜单点击事件
 const doMenuClick = (key: string) => {
   router.push({
     path: key,

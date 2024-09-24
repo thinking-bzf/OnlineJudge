@@ -2,7 +2,7 @@
   <div id="basicLayout">
     <a-layout style="min-height: 100vh">
       <a-layout-header class="header">
-        <GlobleHeader />
+        <GlobalHeader />
       </a-layout-header>
       <a-layout-content class="content">
         <router-view />
@@ -18,12 +18,13 @@
 
 <style>
 #basicLayout .header {
-  line-height: 64px;
+  line-height: 75px;
 }
 
 #basicLayout .content {
   background: linear-gradient(to right, #f0f2f5, #e8e8e8);
   margin-bottom: 16px;
+  padding: 20px;
 }
 
 #basicLayout .footer {
@@ -37,5 +38,5 @@
 }
 </style>
 <script setup lang="ts">
-import GlobleHeader from "@/components/GlobleHeader.vue";
+import GlobalHeader from "@/components/GlobalHeader.vue";
 </script>

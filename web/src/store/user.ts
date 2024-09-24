@@ -1,5 +1,6 @@
 // getters
 import { StoreOptions } from "vuex";
+import ACCESS_ENUM from "@/access/AccessEnum";
 
 const getters = {};
 
@@ -9,13 +10,14 @@ export default {
   state: () => ({
     loginUser: {
       userName: "未登录",
-      role: "notLogin",
+      userRole: ACCESS_ENUM.NOT_LOGIN,
     },
   }),
   getters,
   actions: {
     async getLoginUser({ commit, state }, payload) {
-      commit("updateUser", { userName: "awsling" });
+      // 改为远程请求
+      commit("updateUser", payload);
     },
   },
   mutations: {
