@@ -1,10 +1,16 @@
-package com.awsling.onlinejudge;
+package com.awsling.smartcode;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * 主类测试
+ *
+ * @author <a href="https://github.com/thinking-bzf">awsling</a>
+ * 
+ */
 @SpringBootTest
-class OnlineJudgeApplicationTests {
+class MainApplicationTests {
 
     @Test
     void contextLoads() {
