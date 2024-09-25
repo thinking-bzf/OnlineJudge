@@ -44,7 +44,7 @@ public class QuestionUpdateRequest implements Serializable {
     /**
      * 测试用例 json 数组
      */
-    private JudgeCase judgeCase;
+    private List<JudgeCase> judgeCase;
 
     /**
      * 评测配置 json 对象

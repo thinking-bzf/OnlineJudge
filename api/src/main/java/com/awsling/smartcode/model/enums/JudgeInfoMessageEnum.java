@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 题目提交编程语言
+ * 题目提交信息枚举
  *
  * @author <a href="https://github.com/thinking-bzf">awsling</a>
  */
@@ -15,7 +15,7 @@ public enum JudgeInfoMessageEnum {
 
     ACCEPTED("正确", "Accepted"),
     WRONG_ANSWER("错误答案", "Wrong Answer"),
-    COMPILE_ERROR("编译错误", "Complie Error"),
+    COMPILE_ERROR("编译错误", "Compile Error"),
     MEMORY_LIMIT_EXCEEDED("超出内存限制", "Memory Limit Exceeded"),
     TIME_LIMIT_EXCEEDED("超时", "Time Limit Exceeded"),
     PRESENTATION_ERROR("展示错误", "Presentation Error"),

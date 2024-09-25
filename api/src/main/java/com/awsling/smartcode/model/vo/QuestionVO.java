@@ -27,7 +27,6 @@ public class QuestionVO implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -91,7 +90,6 @@ public class QuestionVO implements Serializable {
     private UserVO userVO;
 
 
-    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
 
@@ -110,7 +108,7 @@ public class QuestionVO implements Serializable {
         BeanUtils.copyProperties(questionVO, question);
 
         // 处理VO类和实体类字段不一致的情况
-        List<String> tagList = questionVO.tags;
+        List<String> tagList = questionVO.getTags();
         if (tagList != null) {
             question.setTags(JSONUtil.toJsonStr(tagList));
         }

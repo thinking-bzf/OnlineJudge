@@ -9,10 +9,7 @@ import com.awsling.smartcode.common.ResultUtils;
 import com.awsling.smartcode.constant.UserConstant;
 import com.awsling.smartcode.exception.BusinessException;
 import com.awsling.smartcode.exception.ThrowUtils;
-import com.awsling.smartcode.model.dto.question.QuestionAddRequest;
-import com.awsling.smartcode.model.dto.question.QuestionEditRequest;
-import com.awsling.smartcode.model.dto.question.QuestionQueryRequest;
-import com.awsling.smartcode.model.dto.question.QuestionUpdateRequest;
+import com.awsling.smartcode.model.dto.question.*;
 import com.awsling.smartcode.model.entity.Question;
 import com.awsling.smartcode.model.entity.User;
 import com.awsling.smartcode.model.vo.QuestionVO;
@@ -31,7 +28,6 @@ import java.util.List;
  * 题目接口
  *
  * @author <a href="https://github.com/thinking-bzf">awsling</a>
- * 
  */
 @RestController
 @RequestMapping("/question")
@@ -64,6 +60,16 @@ public class QuestionController {
         if (tags != null) {
             question.setTags(JSONUtil.toJsonStr(tags));
         }
+        List<JudgeCase> judgeCaseList = questionAddRequest.getJudgeCase();
+        if (judgeCaseList != null) {
+            question.setJudgeCase(JSONUtil.toJsonStr(judgeCaseList));
+        }
+
+        JudgeConfig judgeConfig = questionAddRequest.getJudgeConfig();
+        if (judgeConfig != null) {
+            question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
+        }
+
         questionService.validQuestion(question, true);
         User loginUser = userService.getLoginUser(request);
         question.setUserId(loginUser.getId());
@@ -118,6 +124,15 @@ public class QuestionController {
         if (tags != null) {
             question.setTags(JSONUtil.toJsonStr(tags));
         }
+        List<JudgeCase> judgeCaseList = questionUpdateRequest.getJudgeCase();
+        if (judgeCaseList != null) {
+            question.setJudgeCase(JSONUtil.toJsonStr(judgeCaseList));
+        }
+
+        JudgeConfig judgeConfig = questionUpdateRequest.getJudgeConfig();
+        if (judgeConfig != null) {
+            question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
+        }
         // 参数校验
         questionService.validQuestion(question, false);
         long id = questionUpdateRequest.getId();
@@ -171,7 +186,7 @@ public class QuestionController {
      */
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<QuestionVO>> listQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
-            HttpServletRequest request) {
+                                                               HttpServletRequest request) {
         long current = questionQueryRequest.getCurrent();
         long size = questionQueryRequest.getPageSize();
         // 限制爬虫
@@ -190,7 +205,7 @@ public class QuestionController {
      */
     @PostMapping("/my/list/page/vo")
     public BaseResponse<Page<QuestionVO>> listMyQuestionVOByPage(@RequestBody QuestionQueryRequest questionQueryRequest,
-            HttpServletRequest request) {
+                                                                 HttpServletRequest request) {
         if (questionQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -224,6 +239,15 @@ public class QuestionController {
         List<String> tags = questionEditRequest.getTags();
         if (tags != null) {
             question.setTags(JSONUtil.toJsonStr(tags));
+        }
+        List<JudgeCase> judgeCaseList = questionEditRequest.getJudgeCase();
+        if (judgeCaseList != null) {
+            question.setJudgeCase(JSONUtil.toJsonStr(judgeCaseList));
+        }
+
+        JudgeConfig judgeConfig = questionEditRequest.getJudgeConfig();
+        if (judgeConfig != null) {
+            question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
         }
         // 参数校验
         questionService.validQuestion(question, false);
