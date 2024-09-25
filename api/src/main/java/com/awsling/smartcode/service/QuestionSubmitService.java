@@ -1,9 +1,18 @@
 package com.awsling.smartcode.service;
 
+import com.awsling.smartcode.model.dto.question.QuestionQueryRequest;
 import com.awsling.smartcode.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.awsling.smartcode.model.dto.questionsubmit.QuestionSubmitQueryRequest;
+import com.awsling.smartcode.model.entity.Question;
 import com.awsling.smartcode.model.entity.QuestionSubmit;
 import com.awsling.smartcode.model.entity.User;
+import com.awsling.smartcode.model.vo.QuestionSubmitVO;
+import com.awsling.smartcode.model.vo.QuestionVO;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author awsling
@@ -29,5 +38,32 @@ public interface QuestionSubmitService extends IService<QuestionSubmit> {
      * @return
      */
     // int doQuestionSubmitInner(long userId, long questionId);
+
+    /**
+     * 获取查询条件
+     *
+     * @param questionSubmitQueryRequest
+     * @return
+     */
+    QueryWrapper<QuestionSubmit> getQueryWrapper(QuestionSubmitQueryRequest questionSubmitQueryRequest);
+
+
+    /**
+     * 获取题目提交封装
+     *
+     * @param QuestionSubmitSubmit
+     * @param request
+     * @return
+     */
+    QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit QuestionSubmitSubmit, HttpServletRequest request);
+
+    /**
+     * 分页获取题目提交封装
+     *
+     * @param QuestionSubmitSubmitPage
+     * @param request
+     * @return
+     */
+    Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> QuestionSubmitSubmitPage, HttpServletRequest request);
 
 }

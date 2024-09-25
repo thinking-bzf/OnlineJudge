@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  *
  * @author <a href="https://github.com/thinking-bzf">awsling</a>
  */
-public enum QuestionSubmitEnum {
+public enum QuestionSubmitStatusEnum {
 
     WAITING("待判题", 0),
     RUNNING("判题中", 1),
@@ -22,7 +22,7 @@ public enum QuestionSubmitEnum {
 
     private final Integer value;
 
-    QuestionSubmitEnum(String text, Integer value) {
+    QuestionSubmitStatusEnum(String text, Integer value) {
         this.text = text;
         this.value = value;
     }
@@ -42,11 +42,11 @@ public enum QuestionSubmitEnum {
      * @param value
      * @return
      */
-    public static QuestionSubmitEnum getEnumByValue(Integer value) {
+    public static QuestionSubmitStatusEnum getEnumByValue(Integer value) {
         if (ObjectUtils.isEmpty(value)) {
             return null;
         }
-        for (QuestionSubmitEnum anEnum : QuestionSubmitEnum.values()) {
+        for (QuestionSubmitStatusEnum anEnum : QuestionSubmitStatusEnum.values()) {
             if (anEnum.value.equals(value)) {
                 return anEnum;
             }
