@@ -1,20 +1,19 @@
 import { RouteRecordRaw } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
-import AdminView from "@/views/AdminView.vue";
-import NoAuthView from "@/views/NoAuthView.vue";
-import ACCESS_ENUM from "@/access/AccessEnum";
+import HomeView from "@/views/ExampleView.vue";
+import UserLayout from "@/layouts/UserLayout.vue";
 import UserLoginView from "@/views/user/UserLoginView.vue";
 import UserRegisterView from "@/views/user/UserRegisterView.vue";
-import UserLayout from "@/layout/UserLayout.vue";
+import AdminView from "@/views/AdminView.vue";
+import NoAuthView from "@/views/NoAuthView.vue";
+import ACCESS_ENUM from "@/access/accessEnum";
+import AddQuestionView from "@/views/question/AddQuestionView.vue";
+import ManageQuestionView from "@/views/question/ManageQuestionView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
     path: "/user",
     name: "用户",
     component: UserLayout,
-    meta: {
-      hideInMenu: true,
-    },
     children: [
       {
         path: "/user/login",
@@ -27,24 +26,43 @@ export const routes: Array<RouteRecordRaw> = [
         component: UserRegisterView,
       },
     ],
+    meta: {
+      hideInMenu: true,
+    },
+  },
+  {
+    path: "/add/question",
+    name: "创建题目",
+    component: AddQuestionView,
+    // meta: {
+    //   access: ACCESS_ENUM.ADMIN,
+    // },
+  },
+  {
+    path: "/update/question",
+    name: "更新题目",
+    component: AddQuestionView,
+    // meta: {
+    //   access: ACCESS_ENUM.ADMIN,
+    // },
+  },
+  {
+    path: "/manage/question/",
+    name: "管理题目",
+    component: ManageQuestionView,
+    // meta: {
+    //   access: ACCESS_ENUM.ADMIN,
+    // },
   },
   {
     path: "/",
-    name: "题目列表",
+    name: "浏览题目",
     component: HomeView,
-  },
-  {
-    path: "/admin",
-    name: "管理员页面",
-    component: AdminView,
-    meta: {
-      access: ACCESS_ENUM.ADMIN,
-    },
   },
   {
     path: "/hide",
     name: "隐藏页面",
-    component: NoAuthView,
+    component: HomeView,
     meta: {
       hideInMenu: true,
     },
@@ -55,8 +73,16 @@ export const routes: Array<RouteRecordRaw> = [
     component: NoAuthView,
   },
   {
+    path: "/admin",
+    name: "管理员可见",
+    component: AdminView,
+    meta: {
+      access: ACCESS_ENUM.ADMIN,
+    },
+  },
+  {
     path: "/about",
-    name: "关于",
+    name: "关于我的",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
