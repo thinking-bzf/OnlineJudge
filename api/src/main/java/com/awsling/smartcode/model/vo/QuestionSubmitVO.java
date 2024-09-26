@@ -6,6 +6,8 @@ import com.awsling.smartcode.model.entity.QuestionSubmit;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
+import java.util.Date;
+
 @Data
 public class QuestionSubmitVO {
     /**
@@ -43,6 +45,25 @@ public class QuestionSubmitVO {
      */
     private Long userId;
 
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+    /**
+     * 提交用户信息
+     */
+    private UserVO userVO;
+
+    /**
+     * 题目信息
+     */
+    private QuestionVO questionVO;
 
     private static final long serialVersionUID = 1L;
 
