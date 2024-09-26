@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@bytemd/vue-next": "^1.21.0"
+  }
+}
