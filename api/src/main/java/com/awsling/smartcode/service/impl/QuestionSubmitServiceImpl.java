@@ -19,6 +19,7 @@ import com.awsling.smartcode.model.vo.QuestionVO;
 import com.awsling.smartcode.model.vo.UserVO;
 import com.awsling.smartcode.service.QuestionService;
 import com.awsling.smartcode.service.QuestionSubmitService;
+import com.awsling.smartcode.service.UserService;
 import com.awsling.smartcode.utils.SqlUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -46,6 +47,9 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     private QuestionService questionService;
+
+    @Resource
+    private UserService userService;
 
     /**
      * 题目提交
@@ -125,47 +129,60 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
      * 获取封装类
      *
      * @param questionSubmit
-     * @param request
+     * @param loginUser
      * @return
      */
     @Override
-    public QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, HttpServletRequest request) {
-
+    public QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, User loginUser) {
         QuestionSubmitVO questionSubmitVO = QuestionSubmitVO.objToVo(questionSubmit);
-        // 1. 关联查询用户信息
-        Long userId = questionSubmit.getUserId();
-        User user = null;
-        if (userId != null && userId > 0) {
-            user = userService.getById(userId);
+        // 脱敏：仅本人和管理员能看到自己（userId 和 loginUser 不同）提交的代码的代码
+        long userId = loginUser.getId();
+        if (userId != questionSubmit.getUserId() && !userService.isAdmin(loginUser)) {
+            questionSubmitVO.setCode(null);
         }
-        UserVO userVO = userService.getUserVO(user);
-        questionSubmitVO.setUserVO(userVO);
+
         return questionSubmitVO;
     }
 
+    /**
+     * 分页查询提交信息
+     *
+     * @param questionSubmitPage
+     * @param loginUser
+     * @return
+     */
     @Override
-    public Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage, HttpServletRequest request) {
+    public Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage, User loginUser) {
         List<QuestionSubmit> questionSubmitList = questionSubmitPage.getRecords();
         Page<QuestionSubmitVO> questionSubmitVOPage = new Page<>(questionSubmitPage.getCurrent(), questionSubmitPage.getSize(), questionSubmitPage.getTotal());
         if (CollUtil.isEmpty(questionSubmitList)) {
             return questionSubmitVOPage;
         }
-        // 1. 关联查询用户信息（分页）
-        Set<Long> userIdSet = questionSubmitList.stream().map(QuestionSubmit::getUserId).collect(Collectors.toSet());
-        Map<Long, List<User>> userIdUserListMap = userService.listByIds(userIdSet).stream()
-                .collect(Collectors.groupingBy(User::getId));
 
-        // 填充信息
-        List<QuestionSubmitVO> questionSubmitVOList = questionSubmitList.stream().map(questionSubmit -> {
-            QuestionSubmitVO questionSubmitVO = QuestionSubmitVO.objToVo(questionSubmit);
-            Long userId = questionSubmit.getUserId();
-            User user = null;
-            if (userIdUserListMap.containsKey(userId)) {
-                user = userIdUserListMap.get(userId).get(0);
-            }
-            questionSubmitVO.setUserVO(userService.getUserVO(user));
-            return questionSubmitVO;
-        }).collect(Collectors.toList());
+        // 涉及了多次用户信息的查询
+        List<QuestionSubmitVO> questionSubmitVOList = questionSubmitList.stream()
+                .map(questionSubmit -> getQuestionSubmitVO(questionSubmit, loginUser))
+                .collect(Collectors.toList());
+
+        // // 1. 关联查询用户信息（分页）
+        // // 先将提交信息中的 userId 收集起来，放在集合中，然后根据id集合获取对应的用户信息
+        // Set<Long> userIdSet = questionSubmitList.stream().map(QuestionSubmit::getUserId).collect(Collectors.toSet());
+        // Map<Long, List<User>> userIdUserListMap = userService.listByIds(userIdSet).stream()
+        //         .collect(Collectors.groupingBy(User::getId));
+        //
+        // // 填充信息
+        // // 如果map中存在当前提交信息的 userId，那么将对应的用户信息填充到对应属性中（此时user信息已经在内存中了）
+        // List<QuestionSubmitVO> questionSubmitVOList = questionSubmitList.stream().map(questionSubmit -> {
+        //     QuestionSubmitVO questionSubmitVO = QuestionSubmitVO.objToVo(questionSubmit);
+        //     Long userId = questionSubmit.getUserId();
+        //     User user = null;
+        //     if (userIdUserListMap.containsKey(userId)) {
+        //         user = userIdUserListMap.get(userId).get(0);
+        //     }
+        //     questionSubmitVO.setUserVO(userService.getUserVO(user));
+        //     return questionSubmitVO;
+        // }).collect(Collectors.toList());
+
         questionSubmitVOPage.setRecords(questionSubmitVOList);
         return questionSubmitVOPage;
     }
