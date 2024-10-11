@@ -59,7 +59,7 @@ router.afterEach((to, from, failure) => {
   selectedKeys.value = [to.path];
 });
 
-console.log();
+console.log("用户名" + store.state.user?.loginUser?.userName);
 
 setTimeout(() => {
   store.dispatch("user/getLoginUser", {
