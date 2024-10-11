@@ -52,7 +52,7 @@ public class QuestionVO implements Serializable {
     /**
      * 通过数
      */
-    private Integer acceptNum;
+    private Integer acceptedNum;
 
     /**
      * 评测配置 json 对象

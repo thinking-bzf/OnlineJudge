@@ -49,7 +49,7 @@ public class Question implements Serializable {
     /**
      * 通过数
      */
-    private Integer acceptNum;
+    private Integer acceptedNum;
 
     /**
      * 测试用例 json 数组

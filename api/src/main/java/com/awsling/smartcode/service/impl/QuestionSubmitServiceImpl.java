@@ -69,8 +69,12 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (languageEnum == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "编程语言不合法");
         }
-        // 是否已题目提交
+        if (StringUtils.isBlank(questionSubmitAddRequest.getCode())) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "代码不能为空");
+        }
         long userId = loginUser.getId();
+
+
         // 每个用户串行题目提交
         // TODO 优化
         QuestionSubmit questionSubmit = new QuestionSubmit();
