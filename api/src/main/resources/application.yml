@@ -22,8 +22,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://arch-server:3306/smart_code
-    username: root
-    password: 123456
+    username: awsling
+    password: awsling@123
   # Redis 配置
   # todo 需替换配置，然后取消注释
   #  redis:
