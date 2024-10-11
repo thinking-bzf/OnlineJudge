@@ -7,9 +7,10 @@
       :pagination="{
         showTotal: true,
         pageSize: searchParams.pageSize,
-        current: searchParams.pageNum,
+        current: searchParams.current,
         total,
       }"
+      @page-change="onPageChange"
     >
       <template #optional="{ record }">
         <a-space>
@@ -22,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
 import {
   Page_Question_,
   Question,
@@ -39,11 +40,11 @@ const dataList = ref([]);
 const total = ref(0);
 const searchParams = ref({
   pageSize: 10,
-  pageNum: 1,
+  current: 1,
 });
 
 const loadData = async () => {
-  const res = await QuestionControllerService.listQuestionByPageUsingPost(
+  const res = await QuestionControllerService.listMyQuestionVoByPageUsingPost(
     searchParams.value
   );
   if (res.code === 0) {
@@ -53,6 +54,13 @@ const loadData = async () => {
     message.error("加载失败，" + res.message);
   }
 };
+
+/**
+ * 更新searchParams时，重新加载页面
+ */
+watchEffect(() => {
+  loadData();
+});
 
 /**
  * 页面加载时，请求数据
@@ -113,6 +121,13 @@ const columns = [
     slotName: "optional",
   },
 ];
+
+const onPageChange = (page: number) => {
+  searchParams.value = {
+    ...searchParams.value,
+    current: page,
+  };
+};
 
 const doDelete = async (question: Question) => {
   const res = await QuestionControllerService.deleteQuestionUsingPost({

@@ -8,6 +8,8 @@ import NoAuthView from "@/views/NoAuthView.vue";
 import ACCESS_ENUM from "@/access/accessEnum";
 import AddQuestionView from "@/views/question/AddQuestionView.vue";
 import ManageQuestionView from "@/views/question/ManageQuestionView.vue";
+import QuestionsView from "@/views/question/QuestionsView.vue";
+import ViewQuestionView from "@/views/question/ViewQuestionView.vue";
 // import QuestionsView from "@/views/question/QuestionsView.vue";
 // import ViewQuestionView from "@/views/question/ViewQuestionView.vue";
 
@@ -47,6 +49,22 @@ export const routes: Array<RouteRecordRaw> = [
   //     hideInMenu: true,
   //   },
   // },
+  {
+    path: "/questions",
+    name: "浏览题目",
+    component: QuestionsView,
+  },
+  {
+    path: "/view/question/:id",
+    name: "在线做题",
+    component: ViewQuestionView,
+    // 允许通过属性的方式获取url的动态参数
+    props: true,
+    meta: {
+      access: ACCESS_ENUM.USER,
+      hideInMenu: true,
+    },
+  },
   {
     path: "/add/question",
     name: "创建题目",
