@@ -1,15 +1,11 @@
 package com.awsling.smartcode.controller;
 
-import com.awsling.smartcode.annotation.AuthCheck;
 import com.awsling.smartcode.common.BaseResponse;
 import com.awsling.smartcode.common.ErrorCode;
 import com.awsling.smartcode.common.ResultUtils;
-import com.awsling.smartcode.constant.UserConstant;
 import com.awsling.smartcode.exception.BusinessException;
-import com.awsling.smartcode.model.dto.question.QuestionQueryRequest;
 import com.awsling.smartcode.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.awsling.smartcode.model.dto.questionsubmit.QuestionSubmitQueryRequest;
-import com.awsling.smartcode.model.entity.Question;
 import com.awsling.smartcode.model.entity.QuestionSubmit;
 import com.awsling.smartcode.model.entity.User;
 import com.awsling.smartcode.model.vo.QuestionSubmitVO;

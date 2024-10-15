@@ -4,19 +4,16 @@ import cn.hutool.core.collection.CollUtil;
 import com.awsling.smartcode.common.ErrorCode;
 import com.awsling.smartcode.constant.CommonConstant;
 import com.awsling.smartcode.exception.BusinessException;
-import com.awsling.smartcode.model.dto.question.JudgeCase;
-import com.awsling.smartcode.model.dto.question.JudgeConfig;
-import com.awsling.smartcode.model.dto.question.QuestionQueryRequest;
+import com.awsling.smartcode.judge.JudgeService;
+import com.awsling.smartcode.mapper.QuestionSubmitMapper;
 import com.awsling.smartcode.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.awsling.smartcode.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.awsling.smartcode.model.entity.Question;
 import com.awsling.smartcode.model.entity.QuestionSubmit;
 import com.awsling.smartcode.model.entity.User;
-import com.awsling.smartcode.model.enums.QuestionSubmitStatusEnum;
 import com.awsling.smartcode.model.enums.QuestionSubmitLanguageEnum;
+import com.awsling.smartcode.model.enums.QuestionSubmitStatusEnum;
 import com.awsling.smartcode.model.vo.QuestionSubmitVO;
-import com.awsling.smartcode.model.vo.QuestionVO;
-import com.awsling.smartcode.model.vo.UserVO;
 import com.awsling.smartcode.service.QuestionService;
 import com.awsling.smartcode.service.QuestionSubmitService;
 import com.awsling.smartcode.service.UserService;
@@ -24,16 +21,14 @@ import com.awsling.smartcode.utils.SqlUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.awsling.smartcode.mapper.QuestionSubmitMapper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -50,6 +45,10 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     private UserService userService;
+
+    @Resource
+    @Lazy
+    private JudgeService judgeService;
 
     /**
      * 题目提交
@@ -91,8 +90,12 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (!save) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "提交题目失败");
         }
-        // TODO 执行判题服务
-        return questionSubmit.getId();
+        // 执行判题服务
+        Long questionSubmitId = questionSubmit.getId();
+        CompletableFuture.runAsync(() -> {
+            judgeService.doJudge(questionSubmitId);
+        });
+        return questionSubmitId;
     }
 
     /**

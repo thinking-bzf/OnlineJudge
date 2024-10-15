@@ -1,18 +1,13 @@
 package com.awsling.smartcode.service;
 
-import com.awsling.smartcode.model.dto.question.QuestionQueryRequest;
 import com.awsling.smartcode.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.awsling.smartcode.model.dto.questionsubmit.QuestionSubmitQueryRequest;
-import com.awsling.smartcode.model.entity.Question;
 import com.awsling.smartcode.model.entity.QuestionSubmit;
 import com.awsling.smartcode.model.entity.User;
 import com.awsling.smartcode.model.vo.QuestionSubmitVO;
-import com.awsling.smartcode.model.vo.QuestionVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author awsling
