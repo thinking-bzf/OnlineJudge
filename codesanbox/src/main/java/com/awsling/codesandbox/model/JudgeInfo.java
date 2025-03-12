@@ -1,4 +1,4 @@
-package com.awsling.smartcode.model.dto.questionsubmit;
+package com.awsling.codesandbox.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
