@@ -1,7 +1,7 @@
 package com.awsling.smartcode.model.vo;
 
 import cn.hutool.json.JSONUtil;
-import com.awsling.smartcode.model.dto.questionsubmit.JudgeInfo;
+import com.awsling.smartcode.judge.codesandbox.model.JudgeInfo;
 import com.awsling.smartcode.model.entity.QuestionSubmit;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

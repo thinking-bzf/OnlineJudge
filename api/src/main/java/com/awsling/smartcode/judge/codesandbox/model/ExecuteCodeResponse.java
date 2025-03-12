@@ -1,6 +1,5 @@
 package com.awsling.smartcode.judge.codesandbox.model;
 
-import com.awsling.smartcode.model.dto.questionsubmit.JudgeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

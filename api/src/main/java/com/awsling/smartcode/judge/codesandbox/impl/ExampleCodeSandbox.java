@@ -3,7 +3,7 @@ package com.awsling.smartcode.judge.codesandbox.impl;
 import com.awsling.smartcode.judge.codesandbox.CodeSandbox;
 import com.awsling.smartcode.judge.codesandbox.model.ExecuteCodeRequest;
 import com.awsling.smartcode.judge.codesandbox.model.ExecuteCodeResponse;
-import com.awsling.smartcode.model.dto.questionsubmit.JudgeInfo;
+import com.awsling.smartcode.judge.codesandbox.model.JudgeInfo;
 import com.awsling.smartcode.model.enums.QuestionSubmitStatusEnum;
 
 import java.util.List;
