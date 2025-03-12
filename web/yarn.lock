@@ -7378,6 +7378,24 @@ web-namespaces@^2.0.0:
   resolved "https://registry.npmjs.org/web-namespaces/-/web-namespaces-2.0.1.tgz"
   integrity sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==
 
+"web@file:":
+  version "0.1.0"
+  resolved "file:"
+  dependencies:
+    "@bytemd/plugin-gfm" "^1.21.0"
+    "@bytemd/plugin-highlight" "^1.21.0"
+    "@bytemd/vue-next" "^1.21.0"
+    axios "^1.4.0"
+    core-js "^3.8.3"
+    moment "^2.30.1"
+    monaco-editor "^0.41.0"
+    monaco-editor-webpack-plugin "^7.1.0"
+    vue "^3.2.13"
+    vue-router "^4.0.3"
+    vuex "^4.0.0"
+    web "file:"
+    yuoj-frontend "file:"
+
 webidl-conversions@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npmmirror.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz"
@@ -7652,11 +7670,13 @@ yorkie@^2.0.0:
     "@bytemd/vue-next" "^1.21.0"
     axios "^1.4.0"
     core-js "^3.8.3"
+    moment "^2.30.1"
     monaco-editor "^0.41.0"
     monaco-editor-webpack-plugin "^7.1.0"
     vue "^3.2.13"
     vue-router "^4.0.3"
     vuex "^4.0.0"
+    web "file:"
     yuoj-frontend "file:"
 
 zwitch@^2.0.0, zwitch@^2.0.4:

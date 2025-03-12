@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
   language: () => "java",
   handleChange: (v: string) => {
     console.log(v);
-  },
+  }
 });
 
 const codeEditorRef = ref();
@@ -36,20 +36,12 @@ const codeEditor = ref();
 watch(
   () => props.language,
   () => {
-    codeEditor.value = monaco.editor.create(codeEditorRef.value, {
-      value: props.value,
-      language: props.language,
-      automaticLayout: true,
-      colorDecorators: true,
-      minimap: {
-        enabled: true,
-      },
-      readOnly: false,
-      theme: "vs-dark",
-      // lineNumbers: "off",
-      // roundedSelection: false,
-      // scrollBeyondLastLine: false,
-    });
+    if (codeEditorRef.value) {
+      monaco.editor.setModelLanguage(
+        toRaw(codeEditor.value.getModel()),
+        props.language
+      );
+    }
   }
 );
 
@@ -64,10 +56,10 @@ onMounted(() => {
     automaticLayout: true,
     colorDecorators: true,
     minimap: {
-      enabled: true,
+      enabled: true
     },
     readOnly: false,
-    theme: "vs-dark",
+    theme: "vs-dark"
     // lineNumbers: "off",
     // roundedSelection: false,
     // scrollBeyondLastLine: false,

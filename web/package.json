@@ -19,6 +19,7 @@
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0",
+    "web": "file:",
     "yuoj-frontend": "file:"
   },
   "devDependencies": {
