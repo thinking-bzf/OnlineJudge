@@ -5,16 +5,16 @@ import com.awsling.smartcode.exception.BusinessException;
 import com.awsling.smartcode.mapper.PostThumbMapper;
 import com.awsling.smartcode.model.entity.Post;
 import com.awsling.smartcode.model.entity.PostThumb;
+import com.awsling.smartcode.model.entity.User;
 import com.awsling.smartcode.service.PostService;
 import com.awsling.smartcode.service.PostThumbService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.awsling.smartcode.model.entity.User;
-
-import javax.annotation.Resource;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * 帖子点赞服务实现
