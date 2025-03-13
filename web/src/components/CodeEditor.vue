@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
   language: () => "java",
   handleChange: (v: string) => {
     console.log(v);
-  }
+  },
 });
 
 const codeEditorRef = ref();
@@ -56,10 +56,10 @@ onMounted(() => {
     automaticLayout: true,
     colorDecorators: true,
     minimap: {
-      enabled: true
+      enabled: true,
     },
     readOnly: false,
-    theme: "vs-dark"
+    theme: "vs-dark",
     // lineNumbers: "off",
     // roundedSelection: false,
     // scrollBeyondLastLine: false,
