@@ -1,6 +1,10 @@
 ### @author <a href="https://github.com/thinking-bzf">awsling</a> ###
 ###  ###
 
+application.yml
+application.yaml
+application-local.properties
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
