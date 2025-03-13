@@ -14,12 +14,25 @@ import java.util.List;
 public class DockerDemo {
 
     public static void main(String[] args) throws InterruptedException {
-        DockerClient dockerClient = DockerClientBuilder.getInstance().build();
+        // DefaultDockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
+        //         .withDockerHost("tcp://localhost:2375") // 指定 Unix Socket 方式
+        //         .build();
+        // DockerHttpClient httpClient = new ApacheDockerHttpClient.Builder()
+        //         .dockerHost(config.getDockerHost())
+        //         .sslConfig(config.getSSLConfig())
+        //         .maxConnections(100)
+        //         .connectionTimeout(Duration.ofSeconds(30))
+        //         .responseTimeout(Duration.ofSeconds(45))
+        //         .build();
+
+        // DockerClient dockerClient = DockerClientImpl.getInstance(config, httpClient);
+
+        DockerClient dockerClient = DockerClientBuilder.getInstance("tcp://localhost:2375").build();
         // ping
         PingCmd pingCmd = dockerClient.pingCmd();
         pingCmd.exec();
 
-        // // 下载镜像
+        // 下载镜像
         String image = "hello-world:latest";
         PullImageCmd pullImageCmd = dockerClient.pullImageCmd(image);
         PullImageResultCallback pullImageResultCallback = new PullImageResultCallback() {

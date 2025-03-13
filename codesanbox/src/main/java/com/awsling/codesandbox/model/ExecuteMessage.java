@@ -12,4 +12,7 @@ public class ExecuteMessage {
     private String errMessage;
 
     private Long time;
+
+    private Long memory;
+
 }
