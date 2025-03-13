@@ -73,11 +73,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, withDefaults, defineProps } from "vue";
-import {
-  QuestionControllerService,
-  QuestionSubmitControllerService,
-  QuestionVO,
-} from "../../../generated";
+import { QuestionControllerService, QuestionVO } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
 import MdViewer from "@/components/MdViewer.vue";
 import CodeEditor from "@/components/CodeEditor.vue";
@@ -126,7 +122,7 @@ const doSubmit = async () => {
     return;
   }
 
-  const res = await QuestionSubmitControllerService.doQuestionSubmitUsingPost({
+  const res = await QuestionControllerService.doQuestionSubmitUsingPost({
     ...form.value,
     questionId: question.value.id,
   });
