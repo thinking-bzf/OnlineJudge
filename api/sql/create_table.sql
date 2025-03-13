@@ -3,10 +3,10 @@
 #
 
 -- 创建库
-create database if not exists smart_code;
+create database if not exists onlinejudge;
 
 -- 切换库
-use smart_code;
+use onlinejudge;
 
 -- 用户表
 create table if not exists user
